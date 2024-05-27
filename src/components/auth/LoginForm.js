@@ -11,11 +11,13 @@ import { auth } from "../../api/firebase";
 import { useDispatch } from "react-redux";
 import { login } from "../../slices/authSlice";
 import { fetchUserData } from "../../api/firestoreOperations";
+import { useTheme } from "../../themes/ThemeContext"; // Import useTheme from ThemeContext
 
 const LoginForm = ({ navigation, authenticate }) => {
+  const { theme, toggleTheme } = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const dispatch = useDispatch();
 
   const handleLogin = async (e) => {
@@ -31,8 +33,6 @@ const LoginForm = ({ navigation, authenticate }) => {
 
       if (user) {
         const userFireStoreData = await fetchUserData(user?.uid);
-        console.log({ userFireStoreData });
-
         dispatch(
           login({
             userId: user.uid,
@@ -42,7 +42,6 @@ const LoginForm = ({ navigation, authenticate }) => {
         );
       }
 
-      // console.log("LOGIN_SCREEN_EMAIL_USER---", user.email);
       navigation.navigate("Signup");
     } catch (errorDescription) {
       console.log("Unable to Login", errorDescription);
@@ -54,13 +53,23 @@ const LoginForm = ({ navigation, authenticate }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>JIRA</Text>
-      <Text style={styles.subtitle}>Please enter your credentials</Text>
+    <View style={{ ...styles.container, backgroundColor: theme.background }}>
+      {/* Toggle Button */}
+      <TouchableOpacity onPress={toggleTheme} style={styles.toggleButton}>
+        <Text style={styles.toggleButtonText}>Theme</Text>
+      </TouchableOpacity>
+      <Text style={{ ...styles.title, color: theme.text }}>JIRA</Text>
+      <Text style={{ ...styles.subtitle, color: theme.text }}>
+        Please enter your credentials
+      </Text>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Email</Text>
+        <Text style={{ ...styles.label, color: theme.text }}>Email</Text>
         <TextInput
-          style={styles.input}
+          style={{
+            ...styles.input,
+            backgroundColor: theme.inputColor,
+            borderColor: theme.inputColor,
+          }}
           placeholder="someone@example.com"
           placeholderTextColor="#999"
           keyboardType="email-address"
@@ -71,9 +80,13 @@ const LoginForm = ({ navigation, authenticate }) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Password</Text>
+        <Text style={{ ...styles.label, color: theme.text }}>Password</Text>
         <TextInput
-          style={styles.input}
+          style={{
+            ...styles.input,
+            backgroundColor: theme.inputColor,
+            borderColor: theme.inputColor,
+          }}
           placeholder="Someone@123"
           placeholderTextColor="#999"
           secureTextEntry={true}
@@ -99,14 +112,14 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     paddingHorizontal: 20,
-    backgroundColor: "#fff",
-    paddingTop: "25%",
+    paddingTop: "10%",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
     color: "#333",
+    paddingTop: "30%"
   },
   subtitle: {
     fontSize: 16,
@@ -146,6 +159,19 @@ const styles = StyleSheet.create({
   },
   signupText: {
     color: "purple",
+    fontWeight: "bold",
+    fontSize: 14,
+  },
+  // Toggle Button Styles
+  toggleButton: {
+    backgroundColor: "#ccc",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  toggleButtonText: {
+    color: "#333",
     fontWeight: "bold",
     fontSize: 14,
   },

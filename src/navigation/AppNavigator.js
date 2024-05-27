@@ -19,7 +19,11 @@ const AppNavigator = () => {
     <View style={styles.container}>
       <NavigationContainer>
         {isAuthenticated ? (
-          <Tab.Navigator>
+          <Tab.Navigator
+            screenOptions={{
+              headerShown: false, // Hide the header
+            }}
+          >
             {userRole === "employee" && (
               <Tab.Screen name="Employee" component={EmployeeComponent} />
             )}

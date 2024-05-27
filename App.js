@@ -39,8 +39,11 @@ async function registerForPushNotificationsAsync() {
 
 export default function App() {
   const [expoPushToken, setExpoPushToken] = useState("");
+  // const { theme } = useTheme(); // Get theme from ThemeContext
   console.log("Is device 555:", Constants.isDevice);
   // console.log("Device", Device.isDevice);
+
+  // console.log(theme);
 
   useEffect(() => {
     registerForPushNotificationsAsync().then((token) =>

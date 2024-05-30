@@ -1,82 +1,94 @@
-import { sendPushNotification } from "../../utils/Notification";
-import React, { useEffect, useState } from "react";
+// src/screens/manager/ManagerScreen.js
+import React, { useEffect } from "react";
 import {
   View,
   Text,
   FlatList,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import { useDispatch, useSelector } from "react-redux";
 import {
   loadAllTasks,
   loadEmployees,
-  createTask,
-} from "../../slices/managerSlice";
+  deleteTask,
+} from "../../slices/managerSlice"; // Import deleteTask action
+import { useTheme } from "../../themes/ThemeContext";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { logout } from "../../slices/authSlice";
 
 const ManagerComponent = () => {
+  const { theme } = useTheme();
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.manager.tasks);
   const employees = useSelector((state) => state.manager.employees);
-  const [taskTitle, setTaskTitle] = useState("");
-  const [assignedTo, setAssignedTo] = useState("");
+  const navigation = useNavigation();
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     dispatch(loadAllTasks());
     dispatch(loadEmployees());
   }, [dispatch]);
 
-  const handleCreateTask = () => {
-    if (taskTitle && assignedTo) {
-      dispatch(createTask({ title: taskTitle, assignedTo, status: "Pending" }));
-      setTaskTitle("");
-      setAssignedTo("");
+  const handleNavigateToCreateTask = () => {
+    navigation.navigate("CreateTask");
+  };
 
-      // Notification
-      sendPushNotification("A new task has been created.");
-      sendPushNotification("You have a new task assigned."); // Send notification to assigned employee
-    }
+  const handleLogout = () => {
+    dispatch(logout());
+    navigation.navigate("Login");
+  };
+
+  const handleTaskPress = (taskId) => {
+    navigation.navigate("TaskDetails", { taskId });
+  };
+
+  const handleDeleteTask = (taskId) => {
+    dispatch(deleteTask(taskId));
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Create Task</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Task Title"
-        value={taskTitle}
-        onChangeText={setTaskTitle}
-      />
-      <Picker
-        selectedValue={assignedTo}
-        style={styles.picker}
-        onValueChange={(value) => setAssignedTo(value)}
+    <View style={{ ...styles.container, backgroundColor: theme.background }}>
+      <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+        <MaterialCommunityIcons
+          name="logout"
+          size={24}
+          color="black"
+          onPress={handleLogout}
+        />
+      </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleNavigateToCreateTask}
       >
-        <Picker.Item label="Select Employee" value="" />
-        {employees.map((employee) => (
-          <Picker.Item
-            key={employee.id}
-            label={employee.name}
-            value={employee.id}
-          />
-        ))}
-      </Picker>
-      <TouchableOpacity style={styles.button} onPress={handleCreateTask}>
         <Text style={styles.buttonText}>Create Task</Text>
       </TouchableOpacity>
 
-      <Text style={styles.header}>All Tasks</Text>
+      <Text style={{ ...styles.header, color: theme.text }}>All Tasks</Text>
       <FlatList
         data={tasks}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.taskCard}>
-            <Text style={styles.taskTitle}>{item.title}</Text>
-            <Text>Assigned to: {item.assignedTo}</Text>
-            <Text>Status: {item.status}</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => handleTaskPress(item.id)}
+            style={{ ...styles.taskCard, backgroundColor: theme.inputColor }}
+          >
+            <View style={styles.taskHeader}>
+              <Text style={{ ...styles.taskTitle, color: theme.text }}>
+                Task: {item.title}
+              </Text>
+              <TouchableOpacity onPress={() => handleDeleteTask(item.id)}>
+                <MaterialIcons name="delete" size={24} color="gray" />
+              </TouchableOpacity>
+            </View>
+            <Text style={{ color: theme.text }}>
+              Assigned to: {item.assignedTo}
+            </Text>
+            <Text style={{ color: theme.text, marginTop: 5 }}>
+              Status: <Text style={styles.status}>{item.status}</Text>
+            </Text>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -87,27 +99,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    paddingTop: 45,
   },
   header: {
     fontSize: 18,
     fontWeight: "bold",
     marginVertical: 8,
-  },
-  input: {
-    height: 40,
-    borderColor: "#eee",
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    paddingHorizontal: 8,
-    marginVertical: 8,
-  },
-  picker: {
-    height: 50,
-    width: "100%",
-    marginVertical: 8,
+    marginTop: 10,
   },
   button: {
-    backgroundColor: "purple",
+    backgroundColor: "#0146b3",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -120,20 +121,29 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   taskCard: {
-    backgroundColor: "#fff",
-    padding: 16,
+    backgroundColor: "#f2f2f2",
+    padding: 25,
     marginVertical: 8,
     borderRadius: 8,
-    shadowColor: "#000",
+    shadowColor: "#fff",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 1,
   },
+  taskHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
   taskTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 8,
+  },
+  status: {
+    color: "#6F8FAF",
+    fontWeight: "bold",
   },
 });
 

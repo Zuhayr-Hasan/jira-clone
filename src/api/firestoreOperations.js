@@ -8,7 +8,17 @@ import {
   query,
   where,
   getDoc,
+  deleteDoc,
 } from "firebase/firestore";
+
+export const deleteTaskFromDb = async (taskId) => {
+  try {
+    const taskRef = doc(db, "tasks", taskId);
+    await deleteDoc(taskRef);
+  } catch (e) {
+    console.error("Error deleting task: ", e);
+  }
+};
 
 // Function to add a new task
 export const addTask = async (task) => {

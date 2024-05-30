@@ -8,7 +8,12 @@ import SignupComponent from "../components/auth/SignupForm";
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-  <Stack.Navigator initialRouteName="Login">
+  <Stack.Navigator
+    initialRouteName="Login"
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
     <Stack.Screen name="Login" component={LoginComponent} />
     <Stack.Screen name="Signup" component={SignupComponent} />
   </Stack.Navigator>

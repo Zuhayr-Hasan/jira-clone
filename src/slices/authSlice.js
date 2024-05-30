@@ -23,7 +23,7 @@
       },
       logout: (state) => {
         state.isAuthenticated = false;
-        state.role = null; // Reset role when logging out
+        // state.role = null; // Reset role when logging out
       },
       setRole: (state, action) => {
         state.role = action.payload;

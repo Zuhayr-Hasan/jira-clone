@@ -4,6 +4,7 @@ import {
   fetchAllTasks,
   addTask,
   fetchEmployees,
+  deleteTaskFromDb, // Import the delete task function
 } from "../api/firestoreOperations";
 
 export const loadAllTasks = createAsyncThunk(
@@ -27,6 +28,15 @@ export const createTask = createAsyncThunk(
   async (task) => {
     const taskId = await addTask(task);
     return { id: taskId, ...task };
+  }
+);
+
+// Define the deleteTask async thunk
+export const deleteTask = createAsyncThunk(
+  "manager/deleteTask",
+  async (taskId) => {
+    await deleteTaskFromDb(taskId);
+    return taskId;
   }
 );
 
@@ -65,6 +75,9 @@ const managerSlice = createSlice({
       })
       .addCase(createTask.fulfilled, (state, action) => {
         state.tasks.push(action.payload);
+      })
+      .addCase(deleteTask.fulfilled, (state, action) => {
+        state.tasks = state.tasks.filter((task) => task.id !== action.payload);
       });
   },
 });

@@ -14,6 +14,7 @@ import { fetchUserData } from "../../api/firestoreOperations";
 import { useTheme } from "../../themes/ThemeContext";
 import { Entypo, MaterialIcons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+// import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const LoginForm = ({ navigation, authenticate }) => {
   const { theme, toggleTheme } = useTheme();
@@ -60,8 +61,9 @@ const LoginForm = ({ navigation, authenticate }) => {
     <View style={{ ...styles.container, backgroundColor: theme.background }}>
       {/* Toggle Button */}
       <TouchableOpacity onPress={toggleTheme} style={styles.toggleButton}>
-        <Entypo name="light-down" size={24} color="black" />
+        {/* <Entypo name="light-down" size={24} color="black" /> */}
       </TouchableOpacity>
+      <MaterialCommunityIcons name="jira" size={45} color="#0146b3" />
       <Text style={{ ...styles.title, color: theme.text }}>JIRA</Text>
       <Text style={{ ...styles.subtitle, color: theme.text }}>
         Please enter your credentials
@@ -121,14 +123,14 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     paddingHorizontal: 20,
-    paddingTop: "10%",
+    paddingTop: "25%",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
     color: "#333",
-    paddingTop: "35%",
+    paddingTop: "15%",
   },
   subtitle: {
     fontSize: 16,
@@ -163,7 +165,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   button: {
-    backgroundColor: "#0f2587",
+    backgroundColor: "#0146b3",
     paddingVertical: 12,
     paddingHorizontal: 135,
     borderRadius: 5,
@@ -175,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signupText: {
-    color: "#0f2587",
+    color: "#0146b3",
     fontWeight: "bold",
     fontSize: 14,
   },

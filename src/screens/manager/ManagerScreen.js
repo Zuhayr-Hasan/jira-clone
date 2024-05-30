@@ -16,6 +16,7 @@ import {
 import { useTheme } from "../../themes/ThemeContext";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { logout } from "../../slices/authSlice";
 
 const ManagerComponent = () => {
   const { theme } = useTheme();
@@ -23,6 +24,7 @@ const ManagerComponent = () => {
   const tasks = useSelector((state) => state.manager.tasks);
   const employees = useSelector((state) => state.manager.employees);
   const navigation = useNavigation();
+  // const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     dispatch(loadAllTasks());
@@ -106,7 +108,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   button: {
-    backgroundColor: "#0f2587",
+    backgroundColor: "#0146b3",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

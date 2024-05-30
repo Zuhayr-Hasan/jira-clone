@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#eee",
   },
   button: {
-    backgroundColor: "#0f2587",
+    backgroundColor: "#0146b3",
     paddingVertical: 12,
     paddingHorizontal: 130,
     borderRadius: 5,
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signupText: {
-    color: "#0f2587",
+    color: "#0146b3",
     fontWeight: "bold",
     fontSize: 14,
   },

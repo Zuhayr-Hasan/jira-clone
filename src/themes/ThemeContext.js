@@ -31,9 +31,10 @@ const lightTheme = {
 };
 
 const darkTheme = {
-  background: "#111111",
-  text: "#f0f0f0",
-  inputColor: "#444"
+  background: "#191919", // Darker background color
+  text: "#f0f0f0", // Lighter text color
+  inputColor: "#333333", // Darker input color
+  buttonColor: "#666666", // Darker button color (you can adjust as needed)
 };
 
 export default ThemeContext;

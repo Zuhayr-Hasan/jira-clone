@@ -27,7 +27,7 @@ const AppNavigator = () => {
               tabBarIcon: ({ color, size }) => {
                 let iconName;
 
-                if (route.name === "ManagerStack") {
+                if (route.name === "Manager") {
                   iconName = "account-circle";
                 } else if (route.name === "Details") {
                   iconName = "information";
@@ -45,7 +45,7 @@ const AppNavigator = () => {
               },
             })}
             tabBarOptions={{
-              activeTintColor: "#0f2587",
+              activeTintColor: "#0146b3",
             }}
           >
             {userRole === "employee" && (
@@ -56,10 +56,7 @@ const AppNavigator = () => {
             )}
             {userRole === "manager" && (
               <>
-                <Tab.Screen
-                  name="ManagerStack"
-                  component={ManagerStackNavigator}
-                />
+                <Tab.Screen name="Manager" component={ManagerStackNavigator} />
                 <Tab.Screen name="Details" component={EmployeeDetails} />
                 <Tab.Screen name="Settings" component={Settings} />
               </>

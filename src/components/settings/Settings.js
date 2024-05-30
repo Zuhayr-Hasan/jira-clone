@@ -24,17 +24,17 @@ function Settings() {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity>
-          <Entypo name="arrow-left" size={24} color={theme.text} />
+          {/* <Entypo name="arrow-left" size={24} color={theme.text} /> */}
         </TouchableOpacity>
         <Text style={[styles.headerText, { color: theme.text }]}>Settings</Text>
         <TouchableOpacity>
-          <Entypo name="magnifying-glass" size={24} color={theme.text} />
+          {/* <Entypo name="magnifying-glass" size={24} color={theme.text} /> */}
         </TouchableOpacity>
       </View>
 
       {/* Settings List */}
       <View style={styles.settingsList}>
-        {renderSettingItem("Language")}
+        {/* {renderSettingItem("Language")} */}
         <View style={styles.settingItem}>
           <Text style={[styles.settingText, { color: theme.text }]}>
             Dark mode
@@ -46,9 +46,9 @@ function Settings() {
             value={isDarkMode}
           />
         </View>
-        {renderSettingItem("Notifications")}
+        {/* {renderSettingItem("Notifications")}
         {renderSettingItem("Account")}
-        {renderSettingItem("Help")}
+        {renderSettingItem("Help")} */}
       </View>
     </View>
   );

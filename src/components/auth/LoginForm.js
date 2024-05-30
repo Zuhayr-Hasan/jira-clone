@@ -11,7 +11,9 @@ import { auth } from "../../api/firebase";
 import { useDispatch } from "react-redux";
 import { login } from "../../slices/authSlice";
 import { fetchUserData } from "../../api/firestoreOperations";
-import { useTheme } from "../../themes/ThemeContext"; // Import useTheme from ThemeContext
+import { useTheme } from "../../themes/ThemeContext";
+import { Entypo, MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const LoginForm = ({ navigation, authenticate }) => {
   const { theme, toggleTheme } = useTheme();
@@ -30,6 +32,8 @@ const LoginForm = ({ navigation, authenticate }) => {
         password
       );
       const user = userLogged.user;
+
+      console.log(user.name);
 
       if (user) {
         const userFireStoreData = await fetchUserData(user?.uid);
@@ -56,14 +60,19 @@ const LoginForm = ({ navigation, authenticate }) => {
     <View style={{ ...styles.container, backgroundColor: theme.background }}>
       {/* Toggle Button */}
       <TouchableOpacity onPress={toggleTheme} style={styles.toggleButton}>
-        <Text style={styles.toggleButtonText}>Theme</Text>
+        <Entypo name="light-down" size={24} color="black" />
       </TouchableOpacity>
       <Text style={{ ...styles.title, color: theme.text }}>JIRA</Text>
       <Text style={{ ...styles.subtitle, color: theme.text }}>
         Please enter your credentials
       </Text>
       <View style={styles.inputContainer}>
-        <Text style={{ ...styles.label, color: theme.text }}>Email</Text>
+        <MaterialIcons
+          name="email"
+          size={25}
+          color="gray"
+          style={styles.icon}
+        />
         <TextInput
           style={{
             ...styles.input,
@@ -80,7 +89,7 @@ const LoginForm = ({ navigation, authenticate }) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={{ ...styles.label, color: theme.text }}>Password</Text>
+        <Entypo name="lock" size={25} color="gray" style={styles.icon} />
         <TextInput
           style={{
             ...styles.input,
@@ -119,7 +128,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 10,
     color: "#333",
-    paddingTop: "30%"
+    paddingTop: "35%",
   },
   subtitle: {
     fontSize: 16,
@@ -129,6 +138,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     width: "100%",
     marginBottom: 20,
+    position: "relative",
   },
   label: {
     fontSize: 16,
@@ -138,15 +148,22 @@ const styles = StyleSheet.create({
   input: {
     width: "100%",
     height: 45,
-    paddingHorizontal: 10,
+    paddingHorizontal: 40, // Adjust padding to accommodate icon inside
     borderWidth: 1,
     borderColor: "#eee",
     borderRadius: 5,
     color: "#333",
     backgroundColor: "#eee",
+    paddingLeft: 50,
+  },
+  icon: {
+    position: "absolute",
+    left: 10,
+    top: 10,
+    zIndex: 100,
   },
   button: {
-    backgroundColor: "purple",
+    backgroundColor: "#0f2587",
     paddingVertical: 12,
     paddingHorizontal: 135,
     borderRadius: 5,
@@ -158,17 +175,18 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signupText: {
-    color: "purple",
+    color: "#0f2587",
     fontWeight: "bold",
     fontSize: 14,
   },
   // Toggle Button Styles
   toggleButton: {
-    backgroundColor: "#ccc",
+    backgroundColor: "#eee",
     paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     borderRadius: 5,
     marginTop: 10,
+    marginLeft: 270,
   },
   toggleButtonText: {
     color: "#333",

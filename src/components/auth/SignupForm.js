@@ -9,12 +9,14 @@ import {
 import { createUserWithEmailAndPassword } from "@firebase/auth";
 import { auth, db } from "../../api/firebase"; // Ensure db is exported from your firebase config
 import { doc, setDoc } from "firebase/firestore";
+import { useTheme } from "../../themes/ThemeContext";
 
 const SignupForm = ({ navigation }) => {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { theme } = useTheme();
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -46,11 +48,15 @@ const SignupForm = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, backgroundColor: theme.background }}>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Name</Text>
+        <Text style={{ ...styles.label, color: theme.text }}>Name</Text>
         <TextInput
-          style={styles.input}
+          style={{
+            ...styles.input,
+            backgroundColor: theme.inputColor,
+            borderColor: theme.inputColor,
+          }}
           placeholder="Sara Drasner"
           placeholderTextColor="#999"
           autoCapitalize="words"
@@ -60,9 +66,13 @@ const SignupForm = ({ navigation }) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Role</Text>
+        <Text style={{ ...styles.label, color: theme.text }}>Role</Text>
         <TextInput
-          style={styles.input}
+          style={{
+            ...styles.input,
+            backgroundColor: theme.inputColor,
+            borderColor: theme.inputColor,
+          }}
           placeholder="manager/employee"
           placeholderTextColor="#999"
           autoCapitalize="none"
@@ -72,9 +82,13 @@ const SignupForm = ({ navigation }) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Email</Text>
+        <Text style={{ ...styles.label, color: theme.text }}>Email</Text>
         <TextInput
-          style={styles.input}
+          style={{
+            ...styles.input,
+            backgroundColor: theme.inputColor,
+            borderColor: theme.inputColor,
+          }}
           placeholder="someone@example.com"
           placeholderTextColor="#999"
           keyboardType="email-address"
@@ -85,9 +99,13 @@ const SignupForm = ({ navigation }) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Password</Text>
+        <Text style={{ ...styles.label, color: theme.text }}>Password</Text>
         <TextInput
-          style={styles.input}
+          style={{
+            ...styles.input,
+            backgroundColor: theme.inputColor,
+            borderColor: theme.inputColor,
+          }}
           placeholder="Someone@123"
           placeholderTextColor="#999"
           secureTextEntry={true}
@@ -114,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: 20,
     backgroundColor: "#fff",
-    paddingTop: "5%",
+    paddingTop: "35%",
   },
   title: {
     fontSize: 24,
@@ -147,7 +165,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#eee",
   },
   button: {
-    backgroundColor: "purple",
+    backgroundColor: "#0f2587",
     paddingVertical: 12,
     paddingHorizontal: 130,
     borderRadius: 5,
@@ -159,7 +177,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   signupText: {
-    color: "purple",
+    color: "#0f2587",
     fontWeight: "bold",
     fontSize: 14,
   },

@@ -26,11 +26,12 @@ export const useTheme = () => {
 const lightTheme = {
   background: "#f0f0f0",
   text: "#191919",
-  inputColor: "#e3e3e3"
+  inputColor: "#e3e3e3",
+  buttonColor: ""
 };
 
 const darkTheme = {
-  background: "#333333",
+  background: "#111111",
   text: "#f0f0f0",
   inputColor: "#444"
 };

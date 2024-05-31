@@ -1,9 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import LoginScreen from "../screens/auth/Login";
-import SignupScreen from "../screens/auth/Signup";
-import LoginComponent from "../components/auth/LoginForm";
-import SignupComponent from "../components/auth/SignupForm";
+import LoginScreen from "../components/auth/LoginForm";
+import SignupScreen from "../components/auth/SignupForm";
 
 const Stack = createStackNavigator();
 
@@ -14,8 +12,8 @@ const AuthNavigator = () => (
       headerShown: false,
     }}
   >
-    <Stack.Screen name="Login" component={LoginComponent} />
-    <Stack.Screen name="Signup" component={SignupComponent} />
+    <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="Signup" component={SignupScreen} />
   </Stack.Navigator>
 );
 

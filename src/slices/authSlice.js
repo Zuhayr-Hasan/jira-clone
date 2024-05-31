@@ -1,12 +1,11 @@
-  // src/slices/authSlice.js
   import { createSlice } from "@reduxjs/toolkit";
 
   const initialState = {
-    isAuthenticated: false,
     userId: null,
-    role: null,
-    email: "", // Adding role property to the initial state
+    email: "",
     role: "",
+    isAuthenticated: false,
+    // role: null,
   };
 
   const authSlice = createSlice({

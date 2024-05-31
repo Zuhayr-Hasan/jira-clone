@@ -1,5 +1,5 @@
-// ThemeContext.js
 import React, { createContext, useState, useContext } from "react";
+import { lightTheme, darkTheme } from "./theme";
 
 const ThemeContext = createContext();
 
@@ -19,22 +19,9 @@ export const ThemeProvider = ({ children }) => {
   );
 };
 
+// Custom Hook for implmenting theme in application
 export const useTheme = () => {
   return useContext(ThemeContext);
-};
-
-const lightTheme = {
-  background: "#f0f0f0",
-  text: "#191919",
-  inputColor: "#e3e3e3",
-  buttonColor: ""
-};
-
-const darkTheme = {
-  background: "#191919", // Darker background color
-  text: "#f0f0f0", // Lighter text color
-  inputColor: "#333333", // Darker input color
-  buttonColor: "#666666", // Darker button color (you can adjust as needed)
 };
 
 export default ThemeContext;

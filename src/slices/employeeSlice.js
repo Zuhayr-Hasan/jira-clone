@@ -1,4 +1,3 @@
-// src/slices/employeeSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchTasks, updateTaskStatus } from "../api/firestoreOperations";
 

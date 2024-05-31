@@ -1,10 +1,9 @@
-// src/slices/managerSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   fetchAllTasks,
   addTask,
   fetchEmployees,
-  deleteTaskFromDb, // Import the delete task function
+  deleteTaskFromDb, 
 } from "../api/firestoreOperations";
 
 export const loadAllTasks = createAsyncThunk(
@@ -31,7 +30,6 @@ export const createTask = createAsyncThunk(
   }
 );
 
-// Define the deleteTask async thunk
 export const deleteTask = createAsyncThunk(
   "manager/deleteTask",
   async (taskId) => {
